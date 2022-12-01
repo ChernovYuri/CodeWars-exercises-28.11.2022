@@ -100,3 +100,72 @@ let numbers = "42%";
 let sentence = "Coding!";
 numbers.match(shortHand);                       // ["%"]
 sentence.match(shortHand);                      // ["!"]
+
+let movieName = "2001: A Space Odyssey";
+let numRegex = /\d/g;                                               // \d is equal to [0-9] 
+let result = movieName.match(numRegex);         // [ '2', '0', '0', '1' ]
+
+                                                                    // \D is equal to the character class [^0-9]
+
+
+let whiteSpace = "Whitespace. Whitespace everywhere!"
+let spaceRegex = /\s/g;                                             // \s is searching whitespaces  \S for NON-whitespaces
+whiteSpace.match(spaceRegex);                   // [" ", " "]
+
+let A4 = "aaaah";
+let A2 = "aah";
+let multipleA = /a{3,5}h/;                                          // {x,y} to match only the letter 'a' appearing between x and y times in the string
+multipleA.test(A4);                             // true
+multipleA.test(A2);                             // false
+
+let ohStr = "Ohhh no";
+let ohRegex = /Oh{3,6} no/; 
+let result = ohRegex.test(ohStr);
+
+let A3 = "haaah";
+let A2 = "haah";
+let A100 = "h" + "a".repeat(100) + "h";
+let multipleA = /ha{3,}h/;                                          // {x,} = [x; +infinity]
+multipleA.test(A3);                             // true
+multipleA.test(A2);                             // false
+multipleA.test(A100);                           // true
+
+let A3 = "haaah";
+let A2 = "haah";
+let A100 = "h" + "a".repeat(100) + "h";
+let multipleHA = /ha{3}h/;                                          // {x} true only if x times
+multipleHA.test(A3);                             // true
+multipleHA.test(A2);                             // false
+multipleHA.test(A100);                           // false
+
+let american = "color";
+let british = "colour";
+let rainbowRegex= /colou?r/;                                        // ? specify the possible existence of an element 
+rainbowRegex.test(american);                     // true
+rainbowRegex.test(british);                      // true
+
+let quit = "qu";
+let noquit = "qt";
+let quRegex= /q(?=u)/;                                              // ?=.. positive lookahead will look to make sure the element in the search pattern is there, but won't actually match it
+let qRegex = /q(?!u)/;                                              // ?!.. negative lookahead will look to make sure the element in the search pattern is not there 
+quit.match(quRegex);                             // true
+noquit.match(qRegex);                            // true
+
+/* A more practical use of lookaheads is to check two or more patterns in one string. 
+Here is a (naively) simple password checker that looks for between 3 and 6 characters and at least one number:*/
+let password = "abc123";
+let checkPass = /(?=\w{3,6})(?=\D*\d)/;
+checkPass.test(password);
+
+let wrongText = "The sky is silver.";
+let silverRegex = /silver/;
+wrongText.replace(silverRegex, "blue");         // The replace call would return the string The sky is blue.
+
+let str = "one two three";
+let fixRegex = /(\w+)\s(\w+)\s(\w+)/;
+let replaceText = "$3 $2 $1";
+let result = str.replace(fixRegex, replaceText);   // regex change the string 'one two three' to the string 'three two one'
+
+let array = ['I', 'am', 'feeling', 'really', 'happy'];
+let newArray = array.splice(3, 2);      // => ['really', 'happy']       array[3] = 'really
+let newArray = array.splice(2, 1);      // => ['feeling']
